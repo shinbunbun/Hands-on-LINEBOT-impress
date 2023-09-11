@@ -1,0 +1,7 @@
+.vercel
+node_modules
+.env
+/download/*
+/db/*
+!.gitkeep
+.serverless
