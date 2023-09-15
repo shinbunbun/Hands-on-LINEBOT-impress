@@ -1,6 +1,7 @@
 // モジュール読み込み
 import line from '@line/bot-sdk';
-import aws from 'aws-sdk';
+import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb';
+import { DynamoDB } from '@aws-sdk/client-dynamodb';
 import { error, log } from '../log.js';
 import { bot } from '../bot.js';
 import { DynamoDBContext } from '../db.js';
@@ -17,10 +18,10 @@ export const webhook = (req, res) => {
   const { events } = req.body;
 
   // DynamoDB DocumentClientのインスタンスを生成
-  const dynamoDocument = new aws.DynamoDB.DocumentClient({
+  const dynamoDocument = DynamoDBDocument.from(new DynamoDB({
     endpoint: 'http://localhost:8000',
     region: 'ap-northeast-1',
-  });
+  }));
 
   // DynamoDBのContextを作成
   const dynamoDBContext = new DynamoDBContext(dynamoDocument);

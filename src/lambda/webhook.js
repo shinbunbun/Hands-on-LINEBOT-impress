@@ -1,5 +1,7 @@
 import { createHmac } from 'crypto';
-import aws from 'aws-sdk';
+import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb';
+import { DynamoDB } from '@aws-sdk/client-dynamodb';
+import { S3 } from '@aws-sdk/client-s3';
 import line from '@line/bot-sdk';
 import { AppContext } from '../app-context.js';
 import { bot } from '../bot.js';
@@ -34,7 +36,7 @@ export const webhookHandler = async (event) => {
   if (!verifySignature(event)) return response;
 
   // DynamoDB DocumentClientのインスタンスを生成
-  const dynamoDocument = new aws.DynamoDB.DocumentClient();
+  const dynamoDocument = DynamoDBDocument.from(new DynamoDB());
 
   // DynamoDBのContextを作成
   const dynamoDBContext = new DynamoDBContext(dynamoDocument);
@@ -48,7 +50,7 @@ export const webhookHandler = async (event) => {
   const contentFileDownloader = saveContentFileToS3DownloadDir;
 
   // S3のクライアントを作成
-  const s3Client = new aws.S3();
+  const s3Client = new S3();
 
   // AppContextを作成
   const appContext = new AppContext({
