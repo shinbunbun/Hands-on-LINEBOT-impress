@@ -33,7 +33,10 @@ export const webhookHandler = async (event) => {
   log(events);
 
   // 署名検証に失敗した場合は200を返して終了
-  if (!verifySignature(event)) return response;
+  if (!verifySignature(event)) {
+    error('署名検証エラー');
+    return response;
+  }
 
   // DynamoDB DocumentClientのインスタンスを生成
   const dynamoDocument = DynamoDBDocument.from(new DynamoDB());
