@@ -1,4 +1,4 @@
-service: techbookfest13-code
+service: hands-on-line-bot
 
 # dotenvを使用する設定
 useDotenv: true
@@ -7,7 +7,7 @@ frameworkVersion: "3"
 
 provider:
   name: aws
-  runtime: nodejs16.x
+  runtime: nodejs18.x
   region: ap-northeast-1
   # デフォルトのIAMロールの設定
   iam:
