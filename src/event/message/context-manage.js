@@ -126,7 +126,7 @@ const contextMap = {
           },
           hero: {
             type: 'image',
-            url: bookInfo.cover,
+            url: bookInfo.cover === null ? 'https://raw.githubusercontent.com/shinbunbun/aizuhack-bot/master/media/imagemap.png' : bookInfo.cover,
             size: 'xl',
             margin: 'none',
           },
